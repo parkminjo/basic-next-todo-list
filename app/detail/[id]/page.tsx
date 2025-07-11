@@ -6,7 +6,6 @@ interface Props {
 
 const DetailPage = async ({ params }: Props) => {
   const { id } = await params;
-  console.log(id);
 
   return (
     <div>
