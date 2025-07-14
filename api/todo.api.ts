@@ -1,6 +1,5 @@
 import { ENV } from '@/constants/env';
 import { Todo } from '@/types/todo.type';
-import { stringify } from 'querystring';
 
 export const getTodoList = async () => {
   try {
@@ -38,6 +37,25 @@ export const deleteTodo = async (id: Todo['id']) => {
       method: 'DELETE',
     });
     if (!response.ok) throw new Error('Todo를 삭제하는데 실패했습니다.');
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const updateTodo = async (
+  id: Todo['id'],
+  completed: Todo['completed']
+) => {
+  try {
+    const response = await fetch(`${ENV.JSON_SERVER}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ completed: !completed }),
+    });
+    if (!response.ok) throw new Error('Todo를 수정하는데 실패했습니다.');
   } catch (error) {
     console.error(error);
     throw error;
