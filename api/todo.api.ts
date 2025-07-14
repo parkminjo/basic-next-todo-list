@@ -6,6 +6,20 @@ import { revalidateTag } from 'next/cache';
 
 const TAG_TODO_LIST = 'todoList';
 
+export const getTodoById = async (id: Todo['id']) => {
+  try {
+    const response = await fetch(`${ENV.JSON_SERVER}/${id}`);
+    if (!response.ok) throw new Error('Todo를 불러오는데 실패했습니다.');
+
+    const todo: Todo = await response.json();
+
+    return todo;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getTodoList = async () => {
   try {
     const response = await fetch(ENV.JSON_SERVER, {
