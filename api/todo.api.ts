@@ -1,5 +1,6 @@
 import { ENV } from '@/constants/env';
 import { Todo } from '@/types/todo.type';
+import { stringify } from 'querystring';
 
 export const getTodoList = async () => {
   try {
@@ -9,6 +10,22 @@ export const getTodoList = async () => {
     const todoList: Todo[] = await response.json();
 
     return todoList;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const createTodo = async (content: Todo['content']) => {
+  try {
+    const response = await fetch(ENV.JSON_SERVER, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content, completed: false }),
+    });
+    if (!response.ok) throw new Error('Todo를 추가하는데 실패했습니다.');
   } catch (error) {
     console.error(error);
     throw error;
