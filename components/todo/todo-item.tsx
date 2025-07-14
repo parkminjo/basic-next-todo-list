@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteTodo, updateTodo } from '@/api/todo.api';
 import { Todo } from '@/types/todo.type';
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 }
 
 const TodoItem = ({ todo }: Props) => {
-  const { content, completed } = todo;
+  const { id, content, completed } = todo;
 
   return (
     <li className="flex justify-between">
@@ -15,8 +16,10 @@ const TodoItem = ({ todo }: Props) => {
       <p>{completed ? '완료' : '미완료'}</p>
 
       <div className="flex gap-1 flex-wrap">
-        <button>완료</button>
-        <button>삭제</button>
+        <button onClick={() => updateTodo(id, completed)}>
+          {completed ? '취소' : '완료'}
+        </button>
+        <button onClick={() => deleteTodo(id)}>삭제</button>
       </div>
     </li>
   );
