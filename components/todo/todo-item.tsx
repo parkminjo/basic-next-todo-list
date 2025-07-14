@@ -1,7 +1,9 @@
 'use client';
 
 import { deleteTodo, updateTodo } from '@/api/todo.api';
+import { ROUTER_PATH } from '@/constants/router-path';
 import { Todo } from '@/types/todo.type';
+import Link from 'next/link';
 
 interface Props {
   todo: Todo;
@@ -12,7 +14,7 @@ const TodoItem = ({ todo }: Props) => {
 
   return (
     <li className="flex justify-between">
-      <h2>{content}</h2>
+      <Link href={ROUTER_PATH.DETAIL(id)}>{content}</Link>
       <p>{completed ? '완료' : '미완료'}</p>
 
       <div className="flex gap-1 flex-wrap">
