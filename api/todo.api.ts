@@ -31,3 +31,15 @@ export const createTodo = async (content: Todo['content']) => {
     throw error;
   }
 };
+
+export const deleteTodo = async (id: Todo['id']) => {
+  try {
+    const response = await fetch(`${ENV.JSON_SERVER}/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) throw new Error('Todo를 삭제하는데 실패했습니다.');
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
