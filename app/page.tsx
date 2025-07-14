@@ -1,19 +1,7 @@
-import Link from 'next/link';
-import { getTodoList } from '@/api/todo.api';
+import React from 'react';
 
-const HomePage = async () => {
-  const todoList = await getTodoList();
-
-  return (
-    <div>
-      <Link href="/detail/1">go to DetailPage</Link>
-      <ul>
-        {todoList.map((todo) => {
-          return <li key={todo.id}>{todo.content}</li>;
-        })}
-      </ul>
-    </div>
-  );
+const HomePage = () => {
+  return <div>HomePage</div>;
 };
 
 export default HomePage;
