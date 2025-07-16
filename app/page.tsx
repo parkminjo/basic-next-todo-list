@@ -13,8 +13,13 @@ const HomePage = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: [QUERY_KEY.TODO_LIST],
-    queryFn: getTodoList,
+    queryKey: [QUERY_KEY.TODO_LIST, "all"],
+    queryFn: () => getTodoList("all"),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: [QUERY_KEY.TODO_LIST, "completed"],
+    queryFn: () => getTodoList("completed"),
   });
 
   return (

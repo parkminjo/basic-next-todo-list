@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { combine } from "zustand/middleware";
 
-type FilterType = "all" | "completed";
+export type FilterType = "all" | "completed";
 
 interface TodoFilterState {
   filter: FilterType;
