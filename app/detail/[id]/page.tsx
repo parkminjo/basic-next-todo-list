@@ -1,8 +1,8 @@
 import { getTodoById } from "@/api/todo.api";
 import TodoDetail from "@/components/todo/todo-detail";
 import { Button } from "@/components/ui/button";
-import { QUERY_KEY } from "@/constants/query-key";
 import { ROUTER_PATH } from "@/constants/router-path";
+import { todoQueryKeys } from "@/query-keys/todo-query-key";
 import {
   dehydrate,
   HydrationBoundary,
@@ -18,10 +18,7 @@ const TodoDetailPage = async ({ params }: Props) => {
   const { id } = await params;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: [QUERY_KEY.TODO_LIST, id],
-    queryFn: () => getTodoById(id),
-  });
+  await queryClient.prefetchQuery(todoQueryKeys.detail(id));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -1,11 +1,14 @@
 "use client";
 
+import { useId } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ROUTER_PATH } from "@/constants/router-path";
 import { Button } from "../ui/button";
 import TodoDeleteButton from "./todo-delete-button";
 import { useUpdateTodoMutation } from "@/hooks/use-todo-mutation";
+import { Checkbox } from "../ui/checkbox";
+import { CheckedState } from "@radix-ui/react-checkbox";
 import type { Todo } from "@/types/todo.type";
 
 interface Props {
@@ -16,24 +19,30 @@ const TodoItem = ({ todo }: Props) => {
   const { id, content, completed } = todo;
   const { mutate: updateTodoMutate } = useUpdateTodoMutation();
 
+  const checkboxId = useId();
+
+  const handleChangeChecked = (checked: CheckedState) => {
+    if (checked === "indeterminate") return;
+    updateTodoMutate({ id, completed });
+  };
+
   return (
     <li className="flex flex-row items-center justify-between rounded-lg border px-4 py-2 transition-all">
-      <Link
-        href={ROUTER_PATH.DETAIL(id)}
-        className={cn({ "line-through": completed })}
-      >
-        {content}
-      </Link>
-
-      <div className="flex flex-wrap gap-2">
-        <Button
-          onClick={() => updateTodoMutate({ id, completed })}
-          variant="outline"
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id={checkboxId}
+          checked={completed}
+          onCheckedChange={handleChangeChecked}
+        />
+        <Link
+          href={ROUTER_PATH.DETAIL(id)}
+          className={cn({ "line-through": completed })}
         >
-          {completed ? "취소" : "완료"}
-        </Button>
-        <TodoDeleteButton id={id} />
+          {content}
+        </Link>
       </div>
+
+      <TodoDeleteButton id={id} />
     </li>
   );
 };

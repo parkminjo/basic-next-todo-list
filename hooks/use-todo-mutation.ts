@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTodo, deleteTodo, updateTodo } from "@/api/todo.api";
-import { QUERY_KEY_TODO } from "@/query-keys/todo-query-key";
+import { QUERY_KEY_TODO, todoQueryKeys } from "@/query-keys/todo-query-key";
 
 export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
@@ -30,7 +30,9 @@ export const useUpdateTodoMutation = () => {
   return useMutation({
     mutationFn: updateTodo,
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TODO] });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY_TODO],
+      });
     },
   });
 };
