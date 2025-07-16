@@ -1,12 +1,13 @@
 "use client";
 
-import TodoItem from "./todo-item";
 import { useTodoListQuery } from "@/hooks/use-todo-query";
+import LoadingIndicator from "../common/loading-indicator";
+import TodoItem from "./todo-item";
 
 const TodoList = () => {
   const { data: todoList, isPending, isError } = useTodoListQuery();
 
-  if (isPending) return <div>로딩 중..</div>;
+  if (isPending) return <LoadingIndicator />;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
   return (
