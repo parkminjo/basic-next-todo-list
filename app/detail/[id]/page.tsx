@@ -1,4 +1,6 @@
 import { getTodoById } from "@/api/todo.api";
+import LoadingIndicator from "@/components/common/loading-indicator";
+import TodoDetail from "@/components/todo/todo-detail";
 import TodoItem from "@/components/todo/todo-item";
 import { Button } from "@/components/ui/button";
 import { ROUTER_PATH } from "@/constants/router-path";
@@ -15,7 +17,7 @@ const TodoDetailPage = async ({ params }: Props) => {
   return (
     <section>
       <div className="container mx-auto space-y-4">
-        <TodoItem todo={todo} />
+        <TodoDetail id={id} />
         <Link href={ROUTER_PATH.HOME}>
           <Button className="w-full">돌아가기</Button>
         </Link>
