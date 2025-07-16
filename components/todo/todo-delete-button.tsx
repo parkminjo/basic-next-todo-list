@@ -1,4 +1,4 @@
-import React from "react";
+import { useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,6 +12,7 @@ import {
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { useDeleteTodoMutation } from "@/hooks/use-todo-mutation";
+import { ROUTER_PATH } from "@/constants/router-path";
 import type { Todo } from "@/types/todo.type";
 
 interface Props {
@@ -19,7 +20,13 @@ interface Props {
 }
 
 const TodoDeleteButton = ({ id }: Props) => {
-  const { mutate: deleteTodoMutate } = useDeleteTodoMutation();
+  const router = useRouter();
+  const { mutateAsync: deleteTodoMutate } = useDeleteTodoMutation();
+
+  const handleDeleteClick = async () => {
+    await deleteTodoMutate(id);
+    router.push(ROUTER_PATH.HOME);
+  };
 
   return (
     <AlertDialog>
@@ -35,7 +42,7 @@ const TodoDeleteButton = ({ id }: Props) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>취소</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteTodoMutate(id)}>
+          <AlertDialogAction onClick={handleDeleteClick}>
             삭제
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { updateTodo } from "@/api/todo.api";
 import { ROUTER_PATH } from "@/constants/router-path";
 import { Button } from "../ui/button";
 import TodoDeleteButton from "./todo-delete-button";
