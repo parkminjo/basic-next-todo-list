@@ -2,7 +2,7 @@ import { LoaderCircle } from "lucide-react";
 
 const LoadingIndicator = () => {
   return (
-    <div className="text-center">
+    <div className="flex items-center justify-center p-2">
       <LoaderCircle className="animate-spin" />
     </div>
   );
