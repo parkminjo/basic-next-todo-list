@@ -1,7 +1,7 @@
 "use client";
 
 import TodoItem from "./todo-item";
-import { useTodoListQuery } from "@/hooks/use-todo-list-query";
+import { useTodoListQuery } from "@/hooks/use-todo-query";
 
 const TodoList = () => {
   const { data: todoList, isPending, isError } = useTodoListQuery();
