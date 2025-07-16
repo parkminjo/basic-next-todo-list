@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
-import { deleteTodo } from "@/api/todo.api";
+import { useDeleteTodoMutation } from "@/hooks/use-todo-mutation";
 import type { Todo } from "@/types/todo.type";
 
 interface Props {
@@ -19,6 +19,8 @@ interface Props {
 }
 
 const TodoDeleteButton = ({ id }: Props) => {
+  const { mutate: deleteTodoMutate } = useDeleteTodoMutation();
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -33,7 +35,7 @@ const TodoDeleteButton = ({ id }: Props) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>취소</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteTodo(id)}>
+          <AlertDialogAction onClick={() => deleteTodoMutate(id)}>
             삭제
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -1,12 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { updateTodo } from "@/api/todo.api";
 import { ROUTER_PATH } from "@/constants/router-path";
-import { Todo } from "@/types/todo.type";
-import Link from "next/link";
 import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
 import TodoDeleteButton from "./todo-delete-button";
+import type { Todo } from "@/types/todo.type";
 
 interface Props {
   todo: Todo;
