@@ -58,10 +58,12 @@ export const deleteTodo = async (id: Todo["id"]) => {
   }
 };
 
-export const updateTodo = async (
-  id: Todo["id"],
-  completed: Todo["completed"],
-) => {
+interface UpdateTodoProps {
+  id: Todo["id"];
+  completed: Todo["completed"];
+}
+
+export const updateTodo = async ({ id, completed }: UpdateTodoProps) => {
   try {
     const response = await fetch(`${ENV.JSON_SERVER}/${id}`, {
       method: "PATCH",

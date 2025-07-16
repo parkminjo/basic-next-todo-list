@@ -6,6 +6,7 @@ import { updateTodo } from "@/api/todo.api";
 import { ROUTER_PATH } from "@/constants/router-path";
 import { Button } from "../ui/button";
 import TodoDeleteButton from "./todo-delete-button";
+import { useUpdateTodoMutation } from "@/hooks/use-todo-mutation";
 import type { Todo } from "@/types/todo.type";
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 
 const TodoItem = ({ todo }: Props) => {
   const { id, content, completed } = todo;
+  const { mutate: updateTodoMutate } = useUpdateTodoMutation();
 
   return (
     <li className="flex flex-row items-center justify-between rounded-lg border px-4 py-2 transition-all">
@@ -25,7 +27,10 @@ const TodoItem = ({ todo }: Props) => {
       </Link>
 
       <div className="flex flex-wrap gap-2">
-        <Button onClick={() => updateTodo(id, completed)} variant="outline">
+        <Button
+          onClick={() => updateTodoMutate({ id, completed })}
+          variant="outline"
+        >
           {completed ? "취소" : "완료"}
         </Button>
         <TodoDeleteButton id={id} />
