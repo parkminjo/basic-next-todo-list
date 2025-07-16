@@ -1,8 +1,7 @@
-import { getTodoList } from "@/api/todo.api";
 import TodoFilterSwitch from "@/components/todo/todo-filter-switch";
 import TodoForm from "@/components/todo/todo-form";
 import TodoList from "@/components/todo/todo-list";
-import { QUERY_KEY_TODO } from "@/query-keys/todo-query-key";
+import { todoQueryKeys } from "@/query-keys/todo-query-key";
 import {
   dehydrate,
   HydrationBoundary,
@@ -12,15 +11,8 @@ import {
 const HomePage = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: [QUERY_KEY_TODO, "all"],
-    queryFn: () => getTodoList("all"),
-  });
-
-  await queryClient.prefetchQuery({
-    queryKey: [QUERY_KEY_TODO, "completed"],
-    queryFn: () => getTodoList("completed"),
-  });
+  await queryClient.prefetchQuery(todoQueryKeys.filter("all"));
+  await queryClient.prefetchQuery(todoQueryKeys.filter("completed"));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
