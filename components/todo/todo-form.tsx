@@ -1,10 +1,12 @@
 "use client";
 
-import { createTodo } from "@/api/todo.api";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useAddTodoMutation } from "@/hooks/use-todo-mutation";
 
 const TodoForm = () => {
+  const { mutateAsync: addTodoMutate } = useAddTodoMutation();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -14,7 +16,7 @@ const TodoForm = () => {
 
     if (content === "") return;
 
-    await createTodo(content);
+    await addTodoMutate(content);
     form.reset();
   };
 
