@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTodo, deleteTodo, updateTodo } from "@/api/todo.api";
-import { QUERY_KEY } from "@/constants/query-key";
+import { QUERY_KEY_TODO } from "@/query-keys/todo-query-key";
 
 export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
@@ -8,7 +8,7 @@ export const useAddTodoMutation = () => {
   return useMutation({
     mutationFn: createTodo,
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TODO_LIST] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TODO] });
     },
   });
 };
@@ -19,7 +19,7 @@ export const useDeleteTodoMutation = () => {
   return useMutation({
     mutationFn: deleteTodo,
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TODO_LIST] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TODO] });
     },
   });
 };
@@ -30,7 +30,7 @@ export const useUpdateTodoMutation = () => {
   return useMutation({
     mutationFn: updateTodo,
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.TODO_LIST] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TODO] });
     },
   });
 };
