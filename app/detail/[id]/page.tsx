@@ -1,4 +1,3 @@
-import { getTodoById } from "@/api/todo.api";
 import TodoDetail from "@/components/todo/todo-detail";
 import { Button } from "@/components/ui/button";
 import { ROUTER_PATH } from "@/constants/router-path";
