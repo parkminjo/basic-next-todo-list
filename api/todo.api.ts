@@ -1,9 +1,8 @@
-import { createClient } from "@/utils/supabase/client";
+import { supabase } from "@/utils/supabase/client-supabase";
 import type { Todo } from "@/types/todo.type";
 import type { FilterType } from "@/store/use-todo-filter-store";
 
 export const getTodoById = async (id: Todo["id"]) => {
-  const supabase = createClient();
   const { data, error } = await supabase
     .from("todos")
     .select()
@@ -16,7 +15,6 @@ export const getTodoById = async (id: Todo["id"]) => {
 };
 
 export const getTodoList = async (filter?: FilterType) => {
-  const supabase = createClient();
   const todosQuery = supabase
     .from("todos")
     .select()
@@ -34,14 +32,12 @@ export const getTodoList = async (filter?: FilterType) => {
 };
 
 export const createTodo = async (content: Todo["content"]) => {
-  const supabase = createClient();
   const { error } = await supabase.from("todos").insert({ content });
 
   if (error) throw new Error(error.message);
 };
 
 export const deleteTodo = async (id: Todo["id"]) => {
-  const supabase = createClient();
   const { error } = await supabase.from("todos").delete().eq("id", id);
 
   if (error) throw new Error(error.message);
@@ -53,7 +49,6 @@ interface UpdateTodoParams {
 }
 
 export const updateTodo = async ({ id, completed }: UpdateTodoParams) => {
-  const supabase = createClient();
   const { error } = await supabase
     .from("todos")
     .update({ completed: !completed })
