@@ -18,13 +18,13 @@ const TodoDetailPage = async ({ params }: Props) => {
   const { id } = await params;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(todoQueryKeys.detail(id));
+  await queryClient.prefetchQuery(todoQueryKeys.detail(Number(id)));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <section>
         <div className="container mx-auto space-y-4">
-          <TodoDetail id={id} />
+          <TodoDetail id={Number(id)} />
           <Link href={ROUTER_PATH.HOME}>
             <Button className="w-full">돌아가기</Button>
           </Link>

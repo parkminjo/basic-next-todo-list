@@ -1,68 +1,45 @@
-import { ENV } from "@/constants/env";
-import { TODO_ERROR_MESSAGE } from "@/constants/error-message";
+import { createClient } from "@/utils/supabase/client";
 import type { Todo } from "@/types/todo.type";
 import type { FilterType } from "@/store/use-todo-filter-store";
 
 export const getTodoById = async (id: Todo["id"]) => {
-  try {
-    const response = await fetch(`${ENV.JSON_SERVER_URL}/${id}`);
-    if (!response.ok) throw new Error(TODO_ERROR_MESSAGE.GET_TODO);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("todos")
+    .select()
+    .eq("id", id)
+    .single();
 
-    const todo: Todo = await response.json();
+  if (error) throw new Error(error.message);
 
-    return todo;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  return data;
 };
 
 export const getTodoList = async (filter?: FilterType) => {
-  const url = new URL(ENV.JSON_SERVER_URL);
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("todos")
+    .select()
+    .eq("completed", filter === "completed")
+    .order("created_at", { ascending: true });
 
-  if (filter === "completed") {
-    url.searchParams.set("completed", "true");
-  }
+  if (error) throw new Error(error.message);
 
-  try {
-    const response = await fetch(url.toString());
-    if (!response.ok) throw new Error(TODO_ERROR_MESSAGE.GET_TODO_LIST);
-
-    const todoList: Todo[] = await response.json();
-
-    return todoList;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  return data;
 };
 
 export const createTodo = async (content: Todo["content"]) => {
-  try {
-    const response = await fetch(ENV.JSON_SERVER_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content, completed: false }),
-    });
-    if (!response.ok) throw new Error(TODO_ERROR_MESSAGE.POST);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  const supabase = createClient();
+  const { error } = await supabase.from("todos").insert({ content });
+
+  if (error) throw new Error(error.message);
 };
 
 export const deleteTodo = async (id: Todo["id"]) => {
-  try {
-    const response = await fetch(`${ENV.JSON_SERVER_URL}/${id}`, {
-      method: "DELETE",
-    });
-    if (!response.ok) throw new Error(TODO_ERROR_MESSAGE.DELETE);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  const supabase = createClient();
+  const { error } = await supabase.from("todos").delete().eq("id", id);
+
+  if (error) throw new Error(error.message);
 };
 
 interface UpdateTodoParams {
@@ -71,17 +48,11 @@ interface UpdateTodoParams {
 }
 
 export const updateTodo = async ({ id, completed }: UpdateTodoParams) => {
-  try {
-    const response = await fetch(`${ENV.JSON_SERVER_URL}/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ completed: !completed }),
-    });
-    if (!response.ok) throw new Error(TODO_ERROR_MESSAGE.PATCH);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("todos")
+    .update({ completed: !completed })
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
 };
