@@ -17,11 +17,16 @@ export const getTodoById = async (id: Todo["id"]) => {
 
 export const getTodoList = async (filter?: FilterType) => {
   const supabase = createClient();
-  const { data, error } = await supabase
+  const todosQuery = supabase
     .from("todos")
     .select()
-    .eq("completed", filter === "completed")
     .order("created_at", { ascending: true });
+
+  if (filter === "completed") {
+    todosQuery.eq("completed", true);
+  }
+
+  const { data, error } = await todosQuery;
 
   if (error) throw new Error(error.message);
 
