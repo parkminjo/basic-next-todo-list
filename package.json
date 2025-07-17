@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen-types": "supabase gen types typescript --project-id bogbcvwphtlylhmdtgrx --schema public > database.types.ts"
   },
   "dependencies": {
     "@lukemorales/query-key-factory": "^1.3.4",
