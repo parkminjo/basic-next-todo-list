@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@/components/layout/header";
 import TQProviders from "@/components/providers/tanstack-query-provider";
 
 const pretendard = localFont({
@@ -25,10 +24,7 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={`${pretendard.className}`}>
         <TQProviders>
-          <div className="mx-auto max-w-[1200px] px-4">
-            <Header />
-            {children}
-          </div>
+          <div className="mx-auto max-w-[1200px] px-4">{children}</div>
         </TQProviders>
       </body>
     </html>
