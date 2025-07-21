@@ -17,24 +17,29 @@ const SignUpForm = ({ className, ...props }: React.ComponentProps<"div">) => {
           <form>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="nickname">Nickname</Label>
-                <Input id="nickname" type="text" required />
+                <Label htmlFor="fullName">Nickname</Label>
+                <Input id="fullName" name="fullName" type="text" required />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" required />
+                <Input id="email" name="email" type="email" required />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="passwordCheck">Password Check</Label>
                 </div>
-                <Input id="passwordCheck" type="password" required />
+                <Input
+                  id="passwordCheck"
+                  name="passwordCheck"
+                  type="password"
+                  required
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
