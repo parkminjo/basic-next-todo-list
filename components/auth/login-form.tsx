@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { ROUTER_PATH } from "@/constants/router-path";
+import { login } from "@/app/(auth)/action";
 
 const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
@@ -14,7 +15,7 @@ const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
           <CardTitle className="text-center">로그인</CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={login}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
