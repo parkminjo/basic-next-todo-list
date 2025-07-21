@@ -5,4 +5,5 @@ export const ROUTER_PATH = {
   DETAIL: (id: Todo["id"]) => `/detail/${id}`,
   LOGIN: "/login",
   SIGN_UP: "/sign-up",
+  MY_PAGE: "my-page",
 };

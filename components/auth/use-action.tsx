@@ -11,7 +11,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ROUTER_PATH } from "@/constants/router-path";
 import { LogOutIcon, UserCircleIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const UserAction = ({
   user,
@@ -22,6 +24,8 @@ const UserAction = ({
     avatar: string;
   };
 }) => {
+  const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,7 +42,7 @@ const UserAction = ({
         sideOffset={4}
       >
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push(ROUTER_PATH.MY_PAGE)}>
             <UserCircleIcon />
             My Page
           </DropdownMenuItem>
