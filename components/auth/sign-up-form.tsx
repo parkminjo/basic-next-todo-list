@@ -17,21 +17,23 @@ import { signup } from "@/app/auth/action";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
 import { ROUTER_PATH } from "@/constants/router-path";
+import { ZOD_MESSAGE } from "@/constants/zod-message";
 
 const LoginForm = () => {
   const formSchema = z.object({
     email: z.string().email({
-      error: "잘못된 이메일 형식입니다.",
+      error: ZOD_MESSAGE.EMAIL,
     }),
     password: z
       .string()
       .min(6, {
-        error: "비밀번호는 최소 6자 이상이어야 합니다.",
+        error: ZOD_MESSAGE.PASSWORD,
       })
       .max(50),
     fullName: z
       .string()
-      .min(2, { error: "닉네임은 최소 2자 이상이어야 합니다." }),
+      .min(2, { error: ZOD_MESSAGE.FULLNAME_MIN })
+      .max(20, { error: ZOD_MESSAGE.FULLNAME_MAX }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
