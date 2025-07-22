@@ -2,51 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../ui/form";
-import { login } from "@/app/auth/action";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
 import { ROUTER_PATH } from "@/constants/router-path";
-import { ZOD_MESSAGE } from "@/constants/zod-message";
+import { useZodLogin } from "@/hooks/use-zod";
 
 const LoginForm = () => {
-  const formSchema = z.object({
-    email: z.string().email({
-      error: ZOD_MESSAGE.EMAIL,
-    }),
-    password: z
-      .string()
-      .min(6, {
-        error: ZOD_MESSAGE.PASSWORD,
-      })
-      .max(50),
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const formData = new FormData();
-    formData.append("email", values.email);
-    formData.append("password", values.password);
-
-    login(formData);
-  }
+  const { form, onSubmit } = useZodLogin();
 
   return (
     <div className='"flex gap-6" flex-col'>
