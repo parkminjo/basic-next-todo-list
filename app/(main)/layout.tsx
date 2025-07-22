@@ -1,4 +1,5 @@
 import Header from "@/components/layout/header";
+import { Toaster } from "@/components/ui/sonner";
 import { ROUTER_PATH } from "@/constants/router-path";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
@@ -14,7 +15,8 @@ const MainLayout = async ({ children }: PropsWithChildren) => {
   return (
     <div>
       <Header />
-      <main> {children}</main>
+      <main>{children}</main>
+      <Toaster />
     </div>
   );
 };

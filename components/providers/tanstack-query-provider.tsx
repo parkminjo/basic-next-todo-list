@@ -2,12 +2,29 @@
 
 import {
   isServer,
+  MutationCache,
+  QueryCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 function makeQueryClient() {
+  const queryCache = new QueryCache({
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const mutationCache = new MutationCache({
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   return new QueryClient({
+    queryCache,
+    mutationCache,
     defaultOptions: {
       queries: {
         staleTime: 60 * 1000,
