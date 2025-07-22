@@ -15,7 +15,7 @@ interface Props {
 }
 
 const TodoItem = ({ todo }: Props) => {
-  const { id, content, completed } = todo;
+  const { id, content, completed, user_id: userId } = todo;
   const { mutate: updateTodoMutate } = useUpdateTodoMutation();
 
   const checkboxId = useId();
@@ -39,6 +39,9 @@ const TodoItem = ({ todo }: Props) => {
         >
           {content}
         </Link>
+        <span className="text-sm text-gray-400">
+          ( 작성자: {userId.full_name} )
+        </span>
       </div>
 
       <TodoDeleteButton id={id} />
