@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { ROUTER_PATH } from "@/constants/router-path";
-import { signup } from "@/app/(auth)/action";
+import { signup } from "@/app/auth/action";
 
 const SignUpForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (

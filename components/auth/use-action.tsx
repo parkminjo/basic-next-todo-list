@@ -1,13 +1,12 @@
 "use client";
 
-import { signout } from "@/app/(auth)/action";
+import { signout } from "@/app/auth/action";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -15,15 +14,7 @@ import { ROUTER_PATH } from "@/constants/router-path";
 import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const UserAction = ({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) => {
+const UserAction = () => {
   const router = useRouter();
 
   return (
