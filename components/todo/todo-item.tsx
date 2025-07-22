@@ -8,10 +8,10 @@ import TodoDeleteButton from "./todo-delete-button";
 import { useUpdateTodoMutation } from "@/hooks/use-todo-mutation";
 import { Checkbox } from "../ui/checkbox";
 import { CheckedState } from "@radix-ui/react-checkbox";
-import type { Todo } from "@/types/todo.type";
+import type { TodoWithUserId } from "@/api/todo.api";
 
 interface Props {
-  todo: Todo;
+  todo: TodoWithUserId;
 }
 
 const TodoItem = ({ todo }: Props) => {

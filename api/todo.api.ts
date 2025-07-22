@@ -5,7 +5,7 @@ import type { FilterType } from "@/store/use-todo-filter-store";
 export const getTodoById = async (id: Todo["id"]) => {
   const { data, error } = await supabase
     .from("todos")
-    .select()
+    .select(`*, user_id(full_name)`)
     .eq("id", id)
     .single();
 
@@ -14,10 +14,12 @@ export const getTodoById = async (id: Todo["id"]) => {
   return data;
 };
 
+export type TodoWithUserId = Awaited<ReturnType<typeof getTodoList>>[number];
+
 export const getTodoList = async (filter?: FilterType) => {
   const todosQuery = supabase
     .from("todos")
-    .select()
+    .select(`*, user_id(full_name)`)
     .order("created_at", { ascending: true });
 
   if (filter === "completed") {
